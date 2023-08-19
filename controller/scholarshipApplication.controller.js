@@ -4,10 +4,18 @@ const {
   getScholarshipApplicationByIdService,
   updateScholarshipApplicationByIdService,
 } = require("../services/scholarshipApplication.service");
+const sendSms = require("../utils/sendSms");
 
 exports.createScholarshipApplication = async (req, res, next) => {
   try {
     const result = await createScholarshipApplicationService(req.body);
+
+    if (result) {
+      sendSms(
+        result?.mobile,
+        `Dear, ${result.name} We have received your education scholarship application. You will be notified if selected. Application Id: ${result.id}. pbtsbd.org`
+      );
+    }
 
     res.status(201).json({
       statusCode: 201,
@@ -59,15 +67,11 @@ exports.updateScholarshipApplicationById = async (req, res, next) => {
     const { id } = req.params;
     const result = await updateScholarshipApplicationByIdService(id, req.body);
 
-    if (result.acknowledged && result.modifiedCount) {
-      res.status(200).json({
-        statusCode: 200,
-        success: true,
-        message: "Successfully updated scholarship application",
-      });
-    } else {
-      throw new Error("Application info couldn't updated");
-    }
+    res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "Successfully updated scholarship application",
+    });
   } catch (error) {
     error.statusCode = 400;
     next(error);

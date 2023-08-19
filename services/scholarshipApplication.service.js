@@ -1,5 +1,6 @@
-const ScholarshipApplication = require('../models/ScholarshipApplication');
-const generateScholarshipApplicationId = require('../utils/generateScholarshipApplicationId');
+const ScholarshipApplication = require("../models/ScholarshipApplication");
+const generateScholarshipApplicationId = require("../utils/generateScholarshipApplicationId");
+const sendSms = require("../utils/sendSms");
 
 exports.createScholarshipApplicationService = async (application) => {
   const id = await generateScholarshipApplicationId();
@@ -17,7 +18,16 @@ exports.getScholarshipApplicationByIdService = async (id) => {
 };
 
 exports.updateScholarshipApplicationByIdService = async (id, info) => {
-  return await ScholarshipApplication.updateOne({ id }, info, {
+  const res = await ScholarshipApplication.findOneAndUpdate({ id }, info, {
     runValidators: true,
   });
+
+  if (res && info.status === "accepted") {
+    sendSms(
+      res?.mobile,
+      `Dear, ${res.name} Congratulations! You have been selected for an education scholarship. Application Id: ${res.id}. Check Result: pbtsbd.org/scholarship-result`
+    );
+  }
+
+  return res;
 };
