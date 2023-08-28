@@ -32,13 +32,9 @@ const universityStudentSchema = new Schema({
   },
   facebookUrl: {
     type: String,
-    required: true,
-    unique: true,
   },
   whatsappUrl: {
     type: String,
-    required: true,
-    unique: true,
   },
 });
 
