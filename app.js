@@ -11,6 +11,7 @@ const provideHelpRouter = require("./routes/provideHelp.route.js");
 const scholarshipApplicationRouter = require("./routes/scholarshipApplication.route.js");
 const uploader = require("./middleware/uploader.js");
 const verifyToken = require("./middleware/verifyToken.js");
+const meritoriousStudentRouter = require("./routes/meritoriouseStudent.route.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +26,7 @@ app.use("/api/v1/adviser-message", principalAdviserMessageRouter);
 app.use("/api/v1/donor-partner", donorPartnerRouter);
 app.use("/api/v1/provide-help", provideHelpRouter);
 app.use("/api/v1/scholarship-application", scholarshipApplicationRouter);
+app.use("/api/v1/meritorious-student", meritoriousStudentRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({
