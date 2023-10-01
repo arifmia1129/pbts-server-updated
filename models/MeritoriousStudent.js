@@ -51,18 +51,20 @@ const meritoriousStudentSchema = new Schema(
       type: String,
       required: true,
     },
-    chancedInstituteCategory: {
+    passingYear: {
       type: String,
       required: true,
+      enum: ["2022", "2023"],
+    },
+    chancedInstituteCategory: {
+      type: String,
       enum: ["university", "engineering", "medical", "not"],
     },
     chancedInstituteName: {
       type: String,
-      required: true,
     },
     chancedSubjectOrUnitName: {
       type: String,
-      required: true,
     },
     profileImageUrl: {
       type: String,
