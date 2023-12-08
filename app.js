@@ -13,6 +13,7 @@ const uploader = require("./middleware/uploader.js");
 const verifyToken = require("./middleware/verifyToken.js");
 const meritoriousStudentRouter = require("./routes/meritoriouseStudent.route.js");
 const headerBannerRouter = require("./routes/headerBanner.route.js");
+const PicnicRouter = require("./routes/picnic.route.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use("/api/v1/provide-help", provideHelpRouter);
 app.use("/api/v1/header-banner", headerBannerRouter);
 app.use("/api/v1/scholarship-application", scholarshipApplicationRouter);
 app.use("/api/v1/meritorious-student", meritoriousStudentRouter);
+app.use("/api/v1/picnic", PicnicRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({
