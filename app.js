@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 const userRouter = require("./routes/user.route.js");
 const memberRouter = require("./routes/member.route.js");
 const universityStudentRouter = require("./routes/universityStudent.route.js");
@@ -49,6 +50,48 @@ app.post("/api/v1/upload-image", uploader.single("image"), (req, res) => {
     success: true,
     message: "Successfully uploaded image",
     url: req.file.destination + req.file.filename,
+  });
+});
+
+// Route to upload multiple files
+app.post("/api/v1/upload-files", uploader.array("files", 10), (req, res) => {
+  // Limit to 10 files for example
+  const fileUrls = req.files.map((file) => ({
+    url: `${file.destination}${file.filename}`,
+    type: file.mimetype,
+  }));
+  res.status(201).json({
+    success: true,
+    message: "Successfully uploaded files",
+    files: fileUrls,
+  });
+});
+
+// Route to retrieve file based on type
+app.get("/api/v1/retrieve-file/:filename", (req, res) => {
+  const { filename } = req.params;
+  const extension = path.extname(filename).toLowerCase();
+
+  let directory;
+  if (extension === ".pdf") {
+    directory = "pdfs";
+  } else if (
+    extension === ".png" ||
+    extension === ".jpg" ||
+    extension === ".jpeg"
+  ) {
+    directory = "images";
+  } else {
+    return res
+      .status(400)
+      .json({ success: false, message: "Unsupported file type" });
+  }
+
+  const filePath = path.resolve(__dirname, `${directory}/${filename}`);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).json({ success: false, message: "File not found" });
+    }
   });
 });
 
