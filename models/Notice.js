@@ -17,10 +17,6 @@ const noticeSchema = new Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    required: true,
-  },
   attachments: [attachmentSchema],
 });
 

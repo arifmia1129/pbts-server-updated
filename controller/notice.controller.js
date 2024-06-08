@@ -10,7 +10,7 @@ const uploader = require("../middleware/uploader");
 exports.createNotice = async (req, res, next) => {
   try {
     const files = req.files;
-    const attachments = files.map((file) => ({
+    const attachments = files?.map((file) => ({
       url: `${req.protocol}://${req.get("host")}/${file.path}`,
       type: file.mimetype.includes("pdf") ? "pdf" : "image",
     }));

@@ -1,5 +1,5 @@
 const express = require("express");
-const noticeController = require("../controllers/notice.controller");
+const noticeController = require("../controller/notice.controller");
 const uploader = require("../middleware/uploader"); // File upload middleware
 const auth = require("../middleware/auth");
 const verifyToken = require("../middleware/verifyToken");

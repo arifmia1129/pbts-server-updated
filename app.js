@@ -7,6 +7,7 @@ const memberRouter = require("./routes/member.route.js");
 const universityStudentRouter = require("./routes/universityStudent.route.js");
 const recentActivitiesRouter = require("./routes/recentActivities.route.js");
 const principalAdviserMessageRouter = require("./routes/principalAdviserMessage.route.js");
+const presidentMessageRouter = require("./routes/presidentMessage.route.js");
 const donorPartnerRouter = require("./routes/donorPartner.route.js");
 const provideHelpRouter = require("./routes/provideHelp.route.js");
 const scholarshipApplicationRouter = require("./routes/scholarshipApplication.route.js");
@@ -15,6 +16,7 @@ const verifyToken = require("./middleware/verifyToken.js");
 const meritoriousStudentRouter = require("./routes/meritoriouseStudent.route.js");
 const headerBannerRouter = require("./routes/headerBanner.route.js");
 const PicnicRouter = require("./routes/picnic.route.js");
+const NoticeRouter = require("./routes/notice.route.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,12 +28,14 @@ app.use("/api/v1/member", memberRouter);
 app.use("/api/v1/university-student", universityStudentRouter);
 app.use("/api/v1/recent-activities", recentActivitiesRouter);
 app.use("/api/v1/adviser-message", principalAdviserMessageRouter);
+app.use("/api/v1/president-message", presidentMessageRouter);
 app.use("/api/v1/donor-partner", donorPartnerRouter);
 app.use("/api/v1/provide-help", provideHelpRouter);
 app.use("/api/v1/header-banner", headerBannerRouter);
 app.use("/api/v1/scholarship-application", scholarshipApplicationRouter);
 app.use("/api/v1/meritorious-student", meritoriousStudentRouter);
 app.use("/api/v1/picnic", PicnicRouter);
+app.use("/api/v1/notice", NoticeRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({
