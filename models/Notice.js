@@ -12,13 +12,16 @@ const attachmentSchema = new Schema({
   },
 });
 
-const noticeSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
+const noticeSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    attachments: [attachmentSchema],
   },
-  attachments: [attachmentSchema],
-});
+  { timestamps: true }
+);
 
 const Notice = model("Notice", noticeSchema);
 
