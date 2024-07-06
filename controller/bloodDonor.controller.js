@@ -27,6 +27,7 @@ exports.getBloodDonors = async (req, res, next) => {
       district: req.query.district,
       upazila: req.query.upazila,
       union: req.query.union,
+      bloodGroup: req.query.bloodGroup,
     };
     const { bloodDonors, total } = await getBloodDonorsService(filter, options);
     res.status(200).json({ success: true, data: bloodDonors, total });

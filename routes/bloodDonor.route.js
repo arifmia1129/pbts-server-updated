@@ -9,8 +9,6 @@ router.get("/", bloodDonorController.getBloodDonors);
 
 router.post(
   "/create",
-  verifyToken,
-  auth("admin"),
   uploader.single("profileImage"),
   bloodDonorController.createBloodDonor
 );

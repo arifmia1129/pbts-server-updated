@@ -12,22 +12,25 @@ exports.getBloodDonorsService = async (filter, options) => {
     district,
     upazila,
     union,
+    bloodGroup,
   } = options;
 
-  const query = {
-    $or: [
+  const query = {};
+
+  if (search) {
+    query.$or = [
       { name: { $regex: search, $options: "i" } },
-      { bloodGroup: { $regex: search, $options: "i" } },
       { mobile: { $regex: search, $options: "i" } },
       { district: { $regex: search, $options: "i" } },
       { upazila: { $regex: search, $options: "i" } },
       { union: { $regex: search, $options: "i" } },
-    ],
-  };
+    ];
+  }
 
   if (district) query.district = district;
   if (upazila) query.upazila = upazila;
   if (union) query.union = union;
+  if (bloodGroup) query.bloodGroup = bloodGroup.trim();
 
   const bloodDonors = await BloodDonor.find(query)
     .skip((page - 1) * limit)
