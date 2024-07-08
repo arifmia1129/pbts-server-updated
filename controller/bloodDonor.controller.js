@@ -5,12 +5,20 @@ const {
   updateBloodDonorByIdService,
   deleteBloodDonorByIdService,
 } = require("../services/bloodDonor.service");
+const sendSms = require("../utils/sendSms");
 
 exports.createBloodDonor = async (req, res, next) => {
   try {
     const bloodDonorInfo = req.body;
     bloodDonorInfo.profileImage = req.file.destination + req.file.filename;
     const bloodDonor = await createBloodDonorService(bloodDonorInfo);
+
+    if (bloodDonor) {
+      sendSms(
+        bloodDonorInfo?.mobile,
+        `প্রিয় ${bloodDonorInfo?.name}, পূর্ব বড়ুয়া তরুণ সংঘের ব্লাড ডোনার হিসাবে নিবন্ধন সফল হয়েছে। https://pbtsbd.org`
+      );
+    }
     res.status(201).json({ success: true, data: bloodDonor });
   } catch (error) {
     next(error);
