@@ -12,6 +12,8 @@ const bloodDonorSchema = new Schema({
   mobile: {
     type: String,
     required: true,
+    unique: true,
+    maxLength: 11,
   },
   district: {
     type: String,

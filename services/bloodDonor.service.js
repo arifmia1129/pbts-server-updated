@@ -1,6 +1,12 @@
 const BloodDonor = require("../models/BloodDonor");
 
 exports.createBloodDonorService = async (data) => {
+  const isExist = await BloodDonor.findOne({ mobile: data.mobile });
+
+  if (isExist) {
+    throw new Error("Your mobile number is already exists!");
+  }
+
   return await BloodDonor.create(data);
 };
 
