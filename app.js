@@ -39,14 +39,14 @@ app.use("/api/v1/picnic", PicnicRouter);
 app.use("/api/v1/notice", NoticeRouter);
 app.use("/api/v1/blood-donor", BloodDonorRouter);
 
-app.get("/", (req, res) => {
+app.get("/", cors(), (req, res) => {
   res.status(200).json({
     success: true,
     message: "PBTS server is running!",
   });
 });
 
-app.get("/api/v1/images/:url", (req, res) => {
+app.get("/api/v1/images/:url", cors(), (req, res) => {
   const { url } = req.params;
   res.sendFile(__dirname + `/images/${url}`);
 });
