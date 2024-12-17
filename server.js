@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
-const colors = require('colors');
+const mongoose = require("mongoose");
+require("dotenv").config();
+const colors = require("colors");
 
-const app = require('./app');
+const app = require("./app");
 
 // database connection
 main().catch((err) => console.log(err));
@@ -16,4 +16,4 @@ async function main() {
 }
 
 // server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
