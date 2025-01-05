@@ -242,7 +242,7 @@ exports.verifyNid = async (req, res, next) => {
     }
 
     // Construct the verification API URL
-    const verificationUrl = `https://api.foxithub.pro/udcbd.php?nid=${nid}&dob=${dob}`;
+    const verificationUrl = `https://api.foxithub.pro/unofficial/api.php?key=udcbd22&nid=${nid}&dob=${dob}`;
 
     // Make the API request
     const { data } = await axios.get(verificationUrl);
